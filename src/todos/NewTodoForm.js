@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 // High order function.
 import { connect } from 'react-redux';
 import { addTodoRequest } from './thunks';
+import { getTodos } from './selectors';
 
 import './NewTodoForm.css';
 
@@ -29,7 +30,7 @@ const NewTodoForm = ( { todos, onCreatePressed } ) => {
 
 // Object represent redux state.
 const mapStateToProps = state => ({
-    todos: state.todos,
+    todos: getTodos(state),
 });
 // It takes dispatch, function to allow components to trigger actions that state will respond to.
 const mapDispatchToProps = dispatch => ({
