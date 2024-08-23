@@ -15,6 +15,12 @@ const ListWrapper = styled.div`
     margin: auto;
 `;
 
+const TodoListEmptyWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+`
+const TodoListEmpty = <TodoListEmptyWrapper>Empty</TodoListEmptyWrapper>;
+
 const TodoList = ({ completedTodos, incompleteTodos, onRemovePressed, onCompletedPressed, isLoading, startLoadingTodos }) => {
     useEffect(() => {
         startLoadingTodos();
@@ -24,19 +30,23 @@ const TodoList = ({ completedTodos, incompleteTodos, onRemovePressed, onComplete
     const content = <ListWrapper>
         <NewTodoForm />
         <h3>Incomplete:</h3>
-        {incompleteTodos.map(todo => <TodoListItem 
+        {incompleteTodos.length > 0 
+         ? incompleteTodos.map(todo => <TodoListItem 
             key={todo.id}
             todo={todo}
             onRemovePressed={onRemovePressed}
             onCompletedPressed={onCompletedPressed}
-        />)}
+        />)
+         : TodoListEmpty }
         <h3>Completed:</h3>
-        {completedTodos.map(todo => <TodoListItem 
+        {completedTodos.length > 0 
+         ? completedTodos.map(todo => <TodoListItem 
             key={todo.id}
             todo={todo}
             onRemovePressed={onRemovePressed}
             onCompletedPressed={onCompletedPressed}
-        />)}
+            />)
+         : TodoListEmpty}
         </ListWrapper>
 
     return isLoading ? loadingMessage : content;
